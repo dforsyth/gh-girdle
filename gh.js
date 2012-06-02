@@ -46,22 +46,27 @@ function gh_news() {
 
         for (kk in compressed) {
             (function(k) {
-                var $alert = $('<div class="alert"></div>');
+                var $gh_alert = $('<div class="alert"></div>');
 
                 var $body = $('<div class="body"></div>');
 
-                $alert.append($body);
+                $gh_alert.append($body);
 
-                var $title = $('<div class="title"></div>');
+                var title = '<div class="title"></div>';
+                var $title = $(title);
 
                 $body.append($title);
 
                 var $name = $('<a href="' + k + '">' + k + '</a>');
 
                 $title.append($name);
-                $title.append(' had ' + compressed[k].length + ' events ');
+                var event_str = ' had ' + compressed[k].length + ' event';
+                if (compressed[k].length > 1 ) {
+                    event_str += 's';
+                }
+                $title.append(event_str);
 
-                var $second_title = $('<div class="title"></div>');
+                var $second_title = $(title);
                 $body.append($second_title);
 
                 $(compressed[k]).each(function(i, value) {
@@ -73,6 +78,7 @@ function gh_news() {
 
                 var $expand = $('<a id="' + k + '" class="button">expand</a>');
                 $expand.css('float', 'right');
+
                 $expand.click(function() {
                     var t = $expand.text();
                     $(compressed[k]).each(function(i, value) {
@@ -90,9 +96,10 @@ function gh_news() {
                         $expand.text('expand');
                     }
                 });
+
                 $title.append($expand);
 
-                $('.news').prepend($alert);
+                $('.news').prepend($gh_alert);
             })(kk);
         }
     });
