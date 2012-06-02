@@ -1,3 +1,10 @@
+// ==UserScript==
+// @name           gh-girdle
+// @namespace      gh-girdle
+// @include        https://github.com/
+// @require        http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js
+// ==/UserScript==
+
 function gh_news() {
     $('.news').each(function(index) {
         var compressed = {};
