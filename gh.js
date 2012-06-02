@@ -23,7 +23,8 @@ function gh_news() {
                 alert_type == 'alert commit_comment' ||
                 alert_type == 'alert download' ||
                 alert_type == 'alert delete' ||
-                alert_type == 'alert gollum') {
+                alert_type == 'alert gollum' ||
+                alert_type == 'alert fork') {
                 repo = $($(title_elems).get(1)).text();
             } else if (alert_type == 'alert issues_comment') {
                 var repo_elem = $(title_elems).get(2);
