@@ -36,8 +36,6 @@ function gh_news() {
             $(this).remove();
         });
 
-        var $pbutton = $('.pagination').clone();
-
         for (kk in compressed) {
             (function(k) {
                 var $alert = $('<div class="alert"></div>');
