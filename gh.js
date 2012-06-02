@@ -67,7 +67,7 @@ function gh_news() {
                 $(compressed[k]).each(function(i, value) {
                     var $icon = $('.mini-icon', value).clone();
                     $icon.css({'position': 'relative', 'margin-right': '5px', 'margin-top': '5px'});
-                    $icon.attr('title', $('.title', value).text());
+                    $icon.attr('title', $.trim($('.title', value).text()));
                     $second_title.append($icon);
                 });
 
