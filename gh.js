@@ -71,8 +71,8 @@ function gh_news() {
                     $second_title.append($icon);
                 });
 
-                var expand = '<a id="' + k + '" class="button">expand</a>';
-                var $expand = $(expand);
+                var $expand = $('<a id="' + k + '" class="button">expand</a>');
+                $expand.css('float', 'right');
                 $expand.click(function() {
                     var t = $expand.text();
                     $(compressed[k]).each(function(i, value) {
