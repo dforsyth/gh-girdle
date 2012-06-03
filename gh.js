@@ -13,6 +13,9 @@ function gh_news() {
             // $(this).css('border', '5px solid blue');
             var alert_type = $(this).attr('class')
             var title_elems = $('.title', this).find('a')
+
+            var user = $.trim($('.name', '#userbox').text());
+
             var repo = '';
             
             if (alert_type == 'alert create') {
@@ -23,6 +26,12 @@ function gh_news() {
                 repo = $(key).text();
             } else if (alert_type == 'alert gist') {
                 var key = $(title_elems).get(0);
+                repo = $(key).text();
+            } else if (alert_type == 'alert follow') {
+                var key = $(title_elems).get(1);
+                if ($(key).text() != user) {
+                    key = $(title_elems).get(0);
+                }
                 repo = $(key).text();
             } else if (alert_type == 'alert issues_opened' ||
                 alert_type == 'alert issues_closed' ||
