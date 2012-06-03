@@ -14,10 +14,16 @@ function gh_news() {
             var alert_type = $(this).attr('class')
             var title_elems = $('.title', this).find('a')
             var repo = '';
-            if (alert_type == 'alert issues_opened' ||
+            
+            if (alert_type == 'alert create') {
+                var key = $(title_elems).get(2);
+                if (created_repo == undefined) {
+                    key = $(title_elems).get(0);
+                }
+                repo = $(key).text();
+            } else if (alert_type == 'alert issues_opened' ||
                 alert_type == 'alert issues_closed' ||
-                alert_type == 'alert issues_reopened' ||
-                alert_type == 'alert create') {
+                alert_type == 'alert issues_reopened') {
                 repo = $($(title_elems).get(2)).text();
             } else if (alert_type == 'alert push' ||
                 alert_type == 'alert commit_comment' ||
