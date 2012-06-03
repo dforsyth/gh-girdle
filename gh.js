@@ -17,7 +17,7 @@ function gh_news() {
             
             if (alert_type == 'alert create') {
                 var key = $(title_elems).get(2);
-                if (created_repo == undefined) {
+                if (key == undefined) {
                     key = $(title_elems).get(0);
                 }
                 repo = $(key).text();
