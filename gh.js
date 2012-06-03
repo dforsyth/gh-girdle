@@ -8,16 +8,16 @@
 function gh_news() {
     $('.news').each(function(index) {
         var compressed = {};
-    	// $(this).css('border', '5px solid red');
         $('.alert', this).each(function(index) {
-            // $(this).css('border', '5px solid blue');
             var alert_type = $(this).attr('class')
             var title_elems = $('.title', this).find('a')
 
+            // grab the user
             var user = $.trim($('.name', '#userbox').text());
 
             var repo = '';
-            
+           
+            // don't handle git_hub for now.
             if (alert_type == 'alert create') {
                 var key = $(title_elems).get(2);
                 if (key == undefined) {
