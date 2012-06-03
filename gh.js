@@ -21,6 +21,9 @@ function gh_news() {
                     key = $(title_elems).get(0);
                 }
                 repo = $(key).text();
+            } else if (alert_type == 'alert gist') {
+                var key = $(title_elems).get(0);
+                repo = $(key).text();
             } else if (alert_type == 'alert issues_opened' ||
                 alert_type == 'alert issues_closed' ||
                 alert_type == 'alert issues_reopened') {
