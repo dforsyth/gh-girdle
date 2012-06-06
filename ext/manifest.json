@@ -1,5 +1,5 @@
 {
-	"name": "gh-news",
+	"name": "gh-girdle",
 	"version": "0.1",
 	"content_scripts": [
 		{
