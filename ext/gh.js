@@ -7,6 +7,7 @@
 
 function gh_news() {
     var compressed = {};
+    var containers = {};
 
     function engirdle() {
         $('.news').each(function(index) {
@@ -70,29 +71,60 @@ function gh_news() {
 
             for (kk in compressed) {
                 (function(k) {
-                    var $gh_alert = $('<div class="alert"></div>');
-                    $gh_alert.data("girdled", k);
+                    if (containers[k]) {
+                        $second_title = $('.title:eq(1)', containers[k]);
+                        $second_title.empty();
+                    } else {
+                        var $gh_alert = $('<div class="alert"></div>');
+                        $gh_alert.data("girdled", k);
+                        containers[k] = $gh_alert;
 
-                    var $body = $('<div class="body"></div>');
+                        var $body = $('<div class="body"></div>');
 
-                    $gh_alert.append($body);
+                        $gh_alert.append($body);
 
-                    var title = '<div class="title"></div>';
-                    var $title = $(title);
+                        var title = '<div class="title"></div>';
+                        var $title = $(title);
 
-                    $body.append($title);
+                        $body.append($title);
 
-                    var $name = $('<a href="' + k + '">' + k + '</a>');
+                        var $name = $('<a href="' + k + '">' + k + '</a>');
 
-                    $title.append($name);
-                    var event_str = ' had ' + compressed[k].length + ' event';
-                    if (compressed[k].length > 1 ) {
-                        event_str += 's';
+                        $title.append($name);
+                        var event_str = ' had ' + compressed[k].length + ' event';
+                        if (compressed[k].length > 1 ) {
+                            event_str += 's';
+                        }
+                        $title.append(event_str);
+
+                        var $second_title = $(title);
+                        $body.append($second_title);
+
+                        var $expand = $('<a id="' + k + '" class="button">expand</a>');
+                        $expand.css('float', 'right');
+
+                        $expand.click(function() {
+                            var t = $expand.text();
+                            $(compressed[k]).each(function(i, value) {
+                                if (t == 'expand') {
+                                    $(value).appendTo($body);
+                                } else {
+                                    $(value).remove()
+                                }
+                            });
+                            if (t == 'expand') {
+                                $second_title.remove();
+                                $expand.text('compress');
+                            } else {
+                                $body.append($second_title);
+                                $expand.text('expand');
+                            }
+                        });
+
+                        $title.append($expand);
+
+                        $('.news').prepend($gh_alert);
                     }
-                    $title.append(event_str);
-
-                    var $second_title = $(title);
-                    $body.append($second_title);
 
                     $(compressed[k]).each(function(i, value) {
                         var $icon = $('.mini-icon', value).clone();
@@ -100,31 +132,6 @@ function gh_news() {
                         $icon.attr('title', $.trim($('.title', value).text()));
                         $second_title.append($icon);
                     });
-
-                    var $expand = $('<a id="' + k + '" class="button">expand</a>');
-                    $expand.css('float', 'right');
-
-                    $expand.click(function() {
-                        var t = $expand.text();
-                        $(compressed[k]).each(function(i, value) {
-                            if (t == 'expand') {
-                                $(value).appendTo($body);
-                            } else {
-                                $(value).remove()
-                            }
-                        });
-                        if (t == 'expand') {
-                            $second_title.remove();
-                            $expand.text('compress');
-                        } else {
-                            $body.append($second_title);
-                            $expand.text('expand');
-                        }
-                    });
-
-                    $title.append($expand);
-
-                    $('.news').prepend($gh_alert);
                 })(kk);
             }
         });
