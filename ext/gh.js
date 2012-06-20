@@ -6,10 +6,14 @@
 // ==/UserScript==
 
 function gh_news() {
+    var compressed = {};
+
     function engirdle() {
         $('.news').each(function(index) {
-            var compressed = {};
             $('.alert', this).each(function(index) {
+                if ($(this).data("girdled")) {
+                    return;
+                }
                 var alert_type = $(this).attr('class')
                 var title_elems = $('.title', this).find('a')
 
@@ -67,6 +71,7 @@ function gh_news() {
             for (kk in compressed) {
                 (function(k) {
                     var $gh_alert = $('<div class="alert"></div>');
+                    $gh_alert.data("girdled", k);
 
                     var $body = $('<div class="body"></div>');
 
