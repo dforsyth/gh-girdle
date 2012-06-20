@@ -124,4 +124,16 @@ function gh_news() {
     });
 }
 
-$(document).ready(gh_news);
+function inject(func) {
+    var text, el;
+
+    el = document.createElement("script");
+    el.setAttribute("type", "text/javascript");
+
+    text = document.createTextNode('('+func+')()');
+    el.appendChild(text);
+
+    return document.body.appendChild(el);
+}
+
+inject(gh_news);
