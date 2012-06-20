@@ -16,7 +16,7 @@ function gh_news() {
             var user = $.trim($('.name', '#userbox').text());
 
             var repo = '';
-           
+
             // don't handle git_hub for now.
             if (alert_type == 'alert create') {
                 var key = $(title_elems).get(2);
@@ -122,8 +122,6 @@ function gh_news() {
             })(kk);
         }
     });
-    // no one cares about page > 1
-    $('.pagination').remove();
 }
 
 $(document).ready(gh_news);
