@@ -91,11 +91,8 @@ function gh_news() {
                         var $name = $('<a href="' + k + '">' + k + '</a>');
 
                         $title.append($name);
-                        var event_str = ' had ' + compressed[k].length + ' event';
-                        if (compressed[k].length > 1 ) {
-                            event_str += 's';
-                        }
-                        $title.append(event_str);
+                        var $event_count = '<span class="girdle_event_count"></span>';
+                        $title.append($event_count);
 
                         var $second_title = $(title);
                         $body.append($second_title);
@@ -125,6 +122,13 @@ function gh_news() {
 
                         $('.news').prepend($gh_alert);
                     }
+
+                    $event_count  = $('.girdle_event_count', containers[k]);
+                    var event_str = ' had ' + compressed[k].length + ' event';
+                    if (compressed[k].length > 1 ) {
+                        event_str += 's';
+                    }
+                    $event_count.text(event_str);
 
                     $(compressed[k]).each(function(i, value) {
                         var $icon = $('.mini-icon', value).clone();
