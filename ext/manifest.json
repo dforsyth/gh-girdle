@@ -1,10 +1,10 @@
 {
-	"name": "gh-girdle",
-	"version": "0.1",
-	"content_scripts": [
-		{
-			"matches": ["https://github.com/"],
-			"js": ["jquery.min.js", "gh.js"]
-		}
-	]
+    "name": "gh-girdle",
+    "version": "0.1",
+    "content_scripts": [
+        {
+            "matches": ["https://github.com/"],
+            "js": ["jquery.min.js", "gh.js"]
+        }
+    ]
 }
