@@ -1,5 +1,8 @@
 {
+    "manifest_version": 2,
+
     "name": "gh-girdle",
+    "description": "Makes github's feed skinny",
     "version": "0.1",
     "content_scripts": [
         {
