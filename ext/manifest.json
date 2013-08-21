@@ -7,7 +7,7 @@
     "content_scripts": [
         {
             "matches": ["https://github.com/"],
-            "js": ["jquery.min.js", "gh.js"]
+            "js": ["vendor/zepto.min.js", "vendor/underscore-min.js", "src/gh.js"]
         }
     ]
 }
