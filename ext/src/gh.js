@@ -26,6 +26,18 @@ function gh_news() {
 
     var icon_template = _.template('<span class="octicon <%- icon %>" style="margin-right: 5px;" title="<%- title %>"></span>');
 
+		function extract_repo($el) {
+			var name = $el.text();
+			if (name.indexOf('/') === -1) {
+				name = $el.attr('href');
+				if (name[0] === '/') {
+					name = name.substring(1);
+				}
+			}
+			var repo = _.first(name.split(/@|#/));
+			return repo;
+		};
+
     function engirdle(root) {
         var compressed = {};
         var $root = $(root);
@@ -38,45 +50,9 @@ function gh_news() {
             var alert_classes = $e.attr('class').split(' ');
             var alert_type = _.first(_.reject(alert_classes, function(v){ return !v || v === 'simple' || v === 'alert'; }));
             
-            var $title = $('.title', $e);
-            var $title_links = $('a', $title);
+            var $key = $('.title a', $e).last();
+            var repo = extract_repo($key);
 
-            var repo = '';
-
-            switch (alert_type) {
-                case 'create':
-                case 'push':
-                case 'follow':
-                    var $key = $(_.last($title_links));
-                    repo = $key.text();
-                    break;
-                case 'gist':
-                    var $key = $(_.first($title_links));
-                    repo = $key.text();
-                    break;
-                case 'download':
-                case 'delete':
-                case 'gollum':
-                case 'fork':
-                case 'watch_started':
-                    repo = $($title_links.get(1)).text();
-                    break;
-                case 'issues_opened':
-                case 'issues_comment':
-                case 'issues_closed':
-                case 'issues_reopened': 
-                    var $repo_elem = $(_.last($title_links));
-                    repo = _.first($repo_elem.text().split("#"));
-                    break;
-                case 'commit_comment':
-                    var $repo_elem = $(_.last($title_links));
-                    repo = _.first($repo_elem.text().split("@"));
-                    break;
-                default:
-                    console.log('unknown: ' + alert_type);
-                    repo = 'unknown';
-                    break;
-            }
             if (_.isUndefined(compressed[repo])) {
                 compressed[repo] = [];
             }
