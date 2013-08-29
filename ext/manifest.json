@@ -1,10 +1,13 @@
 {
+    "manifest_version": 2,
+
     "name": "gh-girdle",
+    "description": "Makes github's feed skinny",
     "version": "0.1",
     "content_scripts": [
         {
             "matches": ["https://github.com/"],
-            "js": ["jquery.min.js", "gh.js"]
+            "js": ["vendor/zepto.min.js", "vendor/underscore-min.js", "src/gh.js"]
         }
     ]
 }
