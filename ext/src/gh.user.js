@@ -2,12 +2,20 @@
 // @name           gh-girdle
 // @namespace      gh-girdle
 // @include        https://github.com/
+// @require        http://underscorejs.org/underscore-min.js
+// @require        http://zeptojs.com/zepto.min.js
 // ==/UserScript==
 
 function gh_news() {
     var containers = {};
 
-    var repo_template = _.template('' +
+		var render_template = function(tmpl, ctx) {
+				// A custom, ghetto template function is required since firefox doesn't like
+				// eval (which is what _.template users) in context of greasemonkey scripts
+				return tmpl.replace(/<%-\s*(\w+)\s*%>/g, function(m, p1) { return ctx[p1]; });
+		};
+
+    var repo_template = '' +
         '<div class="alert" style="padding-left: 0px;" data-girdled="<%- name %>">' +
             '<div class="body">' +
                 '<div class="title" style="padding-left: 5px;">' +
@@ -21,10 +29,9 @@ function gh_news() {
                     '<div data-dropzone="<%- name %>"></div>' +
                 '</div>' +
             '</div>' +
-        '</div>'
-    );
+        '</div>';
 
-    var icon_template = _.template('<span class="octicon <%- icon %>" style="margin-right: 5px;" title="<%- title %>"></span>');
+    var icon_template = '<span class="octicon <%- icon %>" style="margin-right: 5px;" title="<%- title %>"></span>';
 
 		function extract_repo($el) {
 			var name = $el.text();
@@ -62,7 +69,7 @@ function gh_news() {
         _.each(compressed, function(actions, repo) {
             var $html;
             if (_.isUndefined(containers[repo])) {
-                $html = $(repo_template({name:repo}));
+                $html = $(render_template(repo_template, {name:repo}));
 
                 $root.prepend($html);
 
@@ -93,7 +100,7 @@ function gh_news() {
                 var octicons = $('.octicon, .mega-octicon', e).attr('class').split(' ');
                 var icon_type = _.first(_.reject(octicons, function(v){ return !v || v === 'octicon' || v === 'mega-octicon'; }));
                 var title = $.trim($('.title', e).text());
-                $compressed.append($(icon_template({icon:icon_type, title: title})));
+                $compressed.append($(render_template(icon_template, {icon:icon_type, title: title})));
             });
             var l = $('.alert', $dropzone).length;
             var t = (l == 1) ? "had 1 event" : "had " + l + " events";
